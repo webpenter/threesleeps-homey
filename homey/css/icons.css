@@ -1,0 +1,440 @@
+@font-face {
+  font-family: 'homey-icon';
+  src:  url('../fonts/homey-icon.eot?uge2s8');
+  src:  url('../fonts/homey-icon.eot?uge2s8#iefix') format('embedded-opentype'),
+    url('../fonts/homey-icon.ttf?uge2s8') format('truetype'),
+    url('../fonts/homey-icon.woff?uge2s8') format('woff'),
+    url('../fonts/homey-icon.svg?uge2s8#homey-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i.homey-icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'homey-icon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.detail-list .homey-icon-arrow-right-1 {
+  font-size: 75% !important;
+  top: auto;
+  margin-right: 10px;
+}
+
+.homey-icon-real-estate-dimensions-plan-1:before {
+  content: "\e986";
+}
+.homey-icon-touch-id-1:before {
+  content: "\e987";
+}
+.homey-icon-love-it-full-01:before {
+  content: "\e985";
+}
+.homey-icon-tripadvisor-3:before {
+  content: "\e96e";
+}
+.homey-icon-expand-5:before {
+  content: "\e983";
+}
+.homey-icon-navigation-up-circle:before {
+  content: "\e984";
+}
+.homey-icon-social-video-vimeo-2:before {
+  content: "\e982";
+}
+.homey-icon-subtract:before {
+  content: "\e980";
+}
+.homey-icon-add:before {
+  content: "\e981";
+}
+.homey-icon-history-triangle:before {
+  content: "\e970";
+}
+.homey-icon-official-building-2:before {
+  content: "\e971";
+}
+.homey-icon-bus:before {
+  content: "\e972";
+}
+.homey-icon-professions-man-office-3:before {
+  content: "\e973";
+}
+.homey-icon-pets-paw:before {
+  content: "\e974";
+}
+.homey-icon-cocktail-martini:before {
+  content: "\e975";
+}
+.homey-icon-modern-tv-channel-van:before {
+  content: "\e976";
+}
+.homey-icon-locally-grown-2:before {
+  content: "\e977";
+}
+.homey-icon-coffee-cup-hot:before {
+  content: "\e978";
+}
+.homey-icon-travel-luggage:before {
+  content: "\e979";
+}
+.homey-icon-medical-hospital-1:before {
+  content: "\e97a";
+}
+.homey-icon-shopping-basket-man:before {
+  content: "\e97b";
+}
+.homey-icon-party-balloons:before {
+  content: "\e97c";
+}
+.homey-icon-hair-dress-chair:before {
+  content: "\e97d";
+}
+.homey-icon-soccer-player:before {
+  content: "\e97e";
+}
+.homey-icon-museum-person:before {
+  content: "\e97f";
+}
+.homey-icon-airbnb:before {
+  content: "\e96f";
+}
+.homey-icon-loading-half:before {
+  content: "\e96a";
+}
+.homey-icon-navigation-menu-horizontal-interface-essential:before {
+  content: "\e96b";
+}
+.homey-icon-location-target-maps-navigation:before {
+  content: "\e96c";
+}
+.homey-icon-subtract-circle-interface-essential:before {
+  content: "\e96d";
+}
+.homey-icon-compare-listings:before {
+  content: "\e965";
+}
+.homey-icon-shop-1-shopping-ecommerce:before {
+  content: "\e966";
+}
+.homey-icon-school-building-school-learning:before {
+  content: "\e967";
+}
+.homey-icon-earth-3-maps-navigation:before {
+  content: "\e968";
+}
+.homey-icon-cloud-download-internet-networks-servers:before {
+  content: "\e969";
+}
+.homey-icon-bin-1-interface-essential:before {
+  content: "\e95c";
+}
+.homey-icon-cloud-upload-internet-networks-servers:before {
+  content: "\e95d";
+}
+.homey-icon-login-interface-essential:before {
+  content: "\e95e";
+}
+.homey-icon-logout-interface-essential:before {
+  content: "\e95f";
+}
+.homey-icon-cog-double-2-interface-essential:before {
+  content: "\e960";
+}
+.homey-icon-building-cloudy-building-construction:before {
+  content: "\e961";
+}
+.homey-icon-messages-bubble-text-1-messages-chat-smileys:before {
+  content: "\e962";
+}
+.homey-icon-common-file-text-files-folders:before {
+  content: "\e963";
+}
+.homey-icon-alert-circle-interface-essential:before {
+  content: "\e964";
+}
+.homey-icon-layout-module-1-interface-essential:before {
+  content: "\e94b";
+}
+.homey-icon-rss-feed-interface-essential:before {
+  content: "\e94c";
+}
+.homey-icon-picture-landscape-images-photography:before {
+  content: "\e94d";
+}
+.homey-icon-question-circle-interface-essential:before {
+  content: "\e94e";
+}
+.homey-icon-saving-bank-money-payments-finance:before {
+  content: "\e94f";
+}
+.homey-icon-payment-paypal-logos:before {
+  content: "\e950";
+}
+.homey-icon-attachment-interface-essential:before {
+  content: "\e951";
+}
+.homey-icon-flag-plain-3-social-medias-rewards-rating:before {
+  content: "\e952";
+}
+.homey-icon-add-circle-interface-essential:before {
+  content: "\e953";
+}
+.homey-icon-navigation-up-circle-interface-essential:before {
+  content: "\e954";
+}
+.homey-icon-navigation-right-circle-1-interface-essential:before {
+  content: "\e955";
+}
+.homey-icon-navigation-down-circle-interface-essential:before {
+  content: "\e956";
+}
+.homey-icon-move-back-interface-essential:before {
+  content: "\e957";
+}
+.homey-icon-qpencil-interface-essential:before {
+  content: "\e958";
+}
+.homey-icon-arrow-thick-circle-right-2-arrows-diagrams:before {
+  content: "\e959";
+}
+.homey-icon-arrow-circle-right-arrows-diagrams:before {
+  content: "\e95a";
+}
+.homey-icon-layout-agenda-interface-essential:before {
+  content: "\e95b";
+}
+.homey-icon-unread-emails:before {
+  content: "\e94a";
+}
+.homey-icon-circle:before {
+  content: "\e948";
+}
+.homey-icon-rating-star:before {
+  content: "\e949";
+}
+.homey-icon-real-estate-dimensions-block:before {
+  content: "\e900";
+}
+.homey-icon-time-clock-circle:before {
+  content: "\e901";
+}
+.homey-icon-fitness-dumbbell:before {
+  content: "\e902";
+}
+.homey-icon-room-service-staff:before {
+  content: "\e903";
+}
+.homey-icon-login-keys:before {
+  content: "\e904";
+}
+.homey-icon-cleaning-spray:before {
+  content: "\e905";
+}
+.homey-icon-parking-p-1:before {
+  content: "\e906";
+}
+.homey-icon-car:before {
+  content: "\e907";
+}
+.homey-icon-speakers-stand:before {
+  content: "\e908";
+}
+.homey-icon-barbecue-set:before {
+  content: "\e909";
+}
+.homey-icon-coffee-espresso-machine:before {
+  content: "\e90a";
+}
+.homey-icon-stove-gas-1:before {
+  content: "\e90b";
+}
+.homey-icon-temperature-snowflake:before {
+  content: "\e90c";
+}
+.homey-icon-appliances-stove:before {
+  content: "\e90d";
+}
+.homey-icon-appliances-blender:before {
+  content: "\e90e";
+}
+.homey-icon-appliances-oven:before {
+  content: "\e90f";
+}
+.homey-icon-appliances-microwave:before {
+  content: "\e910";
+}
+.homey-icon-appliances-fridge:before {
+  content: "\e911";
+}
+.homey-icon-restaurant-eating-set:before {
+  content: "\e912";
+}
+.homey-icon-wifi:before {
+  content: "\e913";
+}
+.homey-icon-laundry-iron-water:before {
+  content: "\e914";
+}
+.homey-icon-bathroom-hanger-1:before {
+  content: "\e915";
+}
+.homey-icon-bathroom-hanger:before {
+  content: "\e916";
+}
+.homey-icon-hotel-double-bed:before {
+  content: "\e917";
+}
+.homey-icon-hotel-single-bed:before {
+  content: "\e918";
+}
+.homey-icon-body-care-soap:before {
+  content: "\e919";
+}
+.homey-icon-water-protection-drop-1:before {
+  content: "\e91a";
+}
+.homey-icon-laundry-machine-1:before {
+  content: "\e91b";
+}
+.homey-icon-swimming-pool-person:before {
+  content: "\e91c";
+}
+.homey-icon-laundry-machine-2:before {
+  content: "\e91d";
+}
+.homey-icon-cleaning-vacuum-2:before {
+  content: "\e91e";
+}
+.homey-icon-lift:before {
+  content: "\e91f";
+}
+.homey-icon-ac-heat:before {
+  content: "\e920";
+}
+.homey-icon-tv-flat-screen:before {
+  content: "\e921";
+}
+.homey-icon-bathroom-shower:before {
+  content: "\e922";
+}
+.homey-icon-bathroom-hair-dryer:before {
+  content: "\e923";
+}
+.homey-icon-bathroom-tub-person:before {
+  content: "\e924";
+}
+.homey-icon-print-text:before {
+  content: "\e925";
+}
+.homey-icon-information-circle:before {
+  content: "\e926";
+}
+.homey-icon-remove-circle:before {
+  content: "\e927";
+}
+.homey-icon-check-circle-1:before {
+  content: "\e928";
+}
+.homey-icon-love-it:before {
+  content: "\e929";
+}
+.homey-icon-award-badge-1:before {
+  content: "\e92a";
+}
+.homey-icon-house-2:before {
+  content: "\e92b";
+}
+.homey-icon-settings-slider:before {
+  content: "\e92c";
+}
+.homey-icon-close:before {
+  content: "\e92d";
+}
+.homey-icon-arrow-left-1:before {
+  content: "\e92e";
+}
+.homey-icon-arrow-right-1:before {
+  content: "\e92f";
+}
+.homey-icon-arrow-down-1:before {
+  content: "\e930";
+}
+.homey-icon-rating-half-star:before {
+  content: "\e931";
+}
+.homey-icon-social-media-yelp:before {
+  content: "\e932";
+}
+.homey-icon-social-video-youtube:before {
+  content: "\e933";
+}
+.homey-icon-social-pinterest:before {
+  content: "\e934";
+}
+.homey-icon-social-media-twitter:before {
+  content: "\e935";
+}
+.homey-icon-social-media-google-plus-1:before {
+  content: "\e936";
+}
+.homey-icon-social-instagram:before {
+  content: "\e937";
+}
+.homey-icon-social-media-facebook:before {
+  content: "\e938";
+}
+.homey-icon-rating-star-half-solid:before {
+  content: "\e939";
+}
+.homey-icon-rating-star-full:before {
+  content: "\e93a";
+}
+.homey-icon-professional-network-linkedin:before {
+  content: "\e93b";
+}
+.homey-icon-read-email-at:before {
+  content: "\e93c";
+}
+.homey-icon-answer-machine-paper:before {
+  content: "\e93d";
+}
+.homey-icon-phone-circle:before {
+  content: "\e93e";
+}
+.homey-icon-style-two-pin-marker:before {
+  content: "\e93f";
+}
+.homey-icon-navigation-menu-vertical:before {
+  content: "\e940";
+}
+.homey-icon-navigation-menu:before {
+  content: "\e941";
+}
+.homey-icon-bathroom-shower-1:before {
+  content: "\e942";
+}
+.homey-icon-hotel-bed:before {
+  content: "\e943";
+}
+.homey-icon-search-1:before {
+  content: "\e944";
+}
+.homey-icon-multiple-man-woman-2:before {
+  content: "\e945";
+}
+.homey-icon-single-neutral-circle:before {
+  content: "\e946";
+}
+.homey-icon-calendar-3:before {
+  content: "\e947";
+}
