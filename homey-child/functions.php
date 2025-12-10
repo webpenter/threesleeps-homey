@@ -1,4 +1,8 @@
 <?php
+
+require_once get_stylesheet_directory() . '/framework/functions/reservation.php';
+
+
 function homey_enqueue_styles() {
     
     // enqueue parent styles
@@ -9,3 +13,5 @@ function homey_enqueue_styles() {
 }
 
 add_action('wp_enqueue_scripts', 'homey_enqueue_styles');
+
+
