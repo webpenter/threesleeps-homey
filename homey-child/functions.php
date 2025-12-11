@@ -15,3 +15,5 @@ function homey_enqueue_styles() {
 add_action('wp_enqueue_scripts', 'homey_enqueue_styles');
 
 
+
+wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
