@@ -250,11 +250,11 @@ function handle_create_stripe_account()
 
             //wiki
             // For accounts in KE, specify the recipient service agreement.
-            if ( strtoupper( $country ) !== 'US' ) {
-                $params['tos_acceptance'] = array(
-                    'service_agreement' => 'recipient'
-                );
-            }
+            // if ( strtoupper( $country ) !== 'US' ) {
+            //     $params['tos_acceptance'] = array(
+            //         'service_agreement' => 'recipient'
+            //     );
+            // }
 
             try {
                 // Create a new payout account.
