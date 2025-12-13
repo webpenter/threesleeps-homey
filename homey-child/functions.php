@@ -3,6 +3,19 @@
 require_once get_stylesheet_directory() . '/framework/functions/reservation.php';
 
 
+// functions.php
+function enqueue_moment_for_all() {
+    wp_enqueue_script(
+        'moment-js',
+        'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js',
+        array(),
+        '2.29.4',
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'enqueue_moment_for_all');
+
+
 function homey_enqueue_styles() {
     
     // enqueue parent styles
