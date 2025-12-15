@@ -3163,6 +3163,8 @@ if( !function_exists('homey_calculate_booking_cost_ajax_nightly_multi') ) {
         $city_fee = homey_formatted_price($prices_array['city_fee']);
         $security_deposit = $prices_array['security_deposit'];
         $additional_guests = $prices_array['additional_guests'];
+        $booking_fee =  $prices_array['booking_fee'];
+        $booking_fee_title = $prices_array['booking_fee_title'];
         $additional_guests_price = $prices_array['additional_guests_price'];
         $additional_guests_total_price = $prices_array['additional_guests_total_price'];
 
@@ -3249,7 +3251,7 @@ if( !function_exists('homey_calculate_booking_cost_ajax_nightly_multi') ) {
         }
 
         $services_fee = $services_fee > 0 ? $services_fee: 0;
-        $sub_total_amnt = $total_price - $prices_array['city_fee'] -  $security_deposit - $services_fee - $taxes;
+        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes - $booking_fee;
         $output .= '<li class="sub-total">'. esc_html__('Sub Total', 'homey'). '<span>'. homey_formatted_price($sub_total_amnt) .'</span></li>';
 
         if(!empty($prices_array['city_fee']) && $prices_array['city_fee'] != 0) {
@@ -3263,6 +3265,16 @@ if( !function_exists('homey_calculate_booking_cost_ajax_nightly_multi') ) {
         if(!empty($services_fee) && $services_fee != 0 ) {
             $output .= '<li>'.esc_attr($local['cs_services_fee']).' <span>'.homey_formatted_price($services_fee).'</span></li>';
         }
+          if (!empty($booking_fee) && $booking_fee != 0) {
+            if(!empty($booking_fee_title)){
+                $booking_fee_title = $booking_fee_title;
+            }
+            else{
+                $booking_fee_title = 'Booking Fee';
+            }
+            $output .= '<li>' . esc_html__($booking_fee_title) . ' <span>' . homey_formatted_price($booking_fee) . '</span></li>';
+        }
+
 
         if(!empty($taxes) && $taxes != 0 ) {
             $output .= '<li>'.esc_attr($local['cs_taxes']).' '.esc_attr($taxes_percent).'% <span>'.homey_formatted_price($taxes).'</span></li>';
