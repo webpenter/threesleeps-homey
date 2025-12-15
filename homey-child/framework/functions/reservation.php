@@ -249,7 +249,10 @@ if (!function_exists('homey_add_reservation')) {
                 $prices_array = homey_get_prices($check_in_date, $check_out_date, $listing_id, $guests, $extra_options, $selectedRooms);
                 $price_per_night = $prices_array['price_per_night'];
                 $nights_total_price = $prices_array['nights_total_price'];
-
+                $booking_fee =  $prices_array['booking_fee'];
+                $booking_fee_title =  $prices_array['booking_fee_title'];
+                $reservation_meta['booking_fee'] = $booking_fee;
+                $reservation_meta['booking_fee_title'] = $booking_fee_title;
                 $reservation_meta['price_per_night'] = $price_per_night;
                 $reservation_meta['nights_total_price'] = $nights_total_price;
                 $reservation_meta['reservation_listing_type'] = 'per_night';
@@ -377,7 +380,8 @@ if (!function_exists('homey_add_reservation')) {
                 'total_price' => $total_price,
                 'renter_email' => $renter_email,
                 'guest_message' => $guest_message,
-                'message_link' => $message_link
+                'message_link' => $message_link,
+                'booking_fee' => $booking_fee
             );
 
             if ($owner_email != $admin_email) {
@@ -405,7 +409,8 @@ if (!function_exists('homey_add_reservation')) {
                 'total_price' => $total_price,
                 'renter_email' => $renter_email,
                 'guest_message' => $guest_message,
-                'message_link' => $message_link
+                'message_link' => $message_link,
+                'booking_fee' => $booking_fee
             );
 
             homey_email_composer($current_user->user_email, 'new_reservation_sent', $email_args);
@@ -3008,6 +3013,8 @@ if (!function_exists('homey_calculate_booking_cost_ajax_nightly')) {
         $taxes = $prices_array['taxes'];
         $taxes_percent = $prices_array['taxes_percent'];
         $city_fee = homey_formatted_price($prices_array['city_fee']);
+        $booking_fee =  $prices_array['booking_fee'];
+        $booking_fee_title = $prices_array['booking_fee_title'];
         $security_deposit = $prices_array['security_deposit'];
         $additional_guests = $prices_array['additional_guests'];
         $additional_guests_price = $prices_array['additional_guests_price'];
@@ -3080,7 +3087,7 @@ if (!function_exists('homey_calculate_booking_cost_ajax_nightly')) {
         }
 
         $services_fee = $services_fee > 0 ? $services_fee : 0;
-        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes;
+        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes - $booking_fee;
         $output .= '<li class="sub-total">' . esc_html__('Sub Total', 'homey') . '<span>' . homey_formatted_price($sub_total_amnt) . '</span></li>';
 
         if (!empty($prices_array['city_fee']) && $prices_array['city_fee'] != 0) {
@@ -3093,6 +3100,16 @@ if (!function_exists('homey_calculate_booking_cost_ajax_nightly')) {
 
         if (!empty($services_fee) && $services_fee != 0) {
             $output .= '<li>' . esc_attr($local['cs_services_fee']) . ' <span>' . homey_formatted_price($services_fee) . '</span></li>';
+        }
+
+        if (!empty($booking_fee) && $booking_fee != 0) {
+            if(!empty($booking_fee_title)){
+                $booking_fee_title = $booking_fee_title;
+            }
+            else{
+                $booking_fee_title = 'Booking Fee';
+            }
+            $output .= '<li>' . esc_html__($booking_fee_title) . ' <span>' . homey_formatted_price($booking_fee) . '</span></li>';
         }
 
         if (!empty($taxes) && $taxes != 0) {
@@ -3500,7 +3517,7 @@ if (!function_exists('homey_calculate_booking_cost_instance_monthly')) {
         }
 
         $services_fee = $services_fee > 0 ? $services_fee : 0;
-        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes;
+        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes - $booking_fee;
         $output .= '<li class="sub-total">' . esc_html__('Sub Total', 'homey') . '<span>' . homey_formatted_price($sub_total_amnt) . '</span></li>';
 
         if (!empty($prices_array['city_fee']) && $prices_array['city_fee'] != 0) {
@@ -3513,6 +3530,16 @@ if (!function_exists('homey_calculate_booking_cost_instance_monthly')) {
 
         if (!empty($services_fee) && $services_fee != 0) {
             $output .= '<li>' . $local['cs_services_fee'] . ' <span>' . homey_formatted_price($services_fee) . '</span></li>';
+        }
+
+        if (!empty($booking_fee) && $booking_fee != 0) {
+            if(!empty($booking_fee_title)){
+                $booking_fee_title = $booking_fee_title;
+            }
+            else{
+                $booking_fee_title = 'Booking Fee';
+            }
+            $output .= '<li>' . esc_html__($booking_fee_title) . ' <span>' . homey_formatted_price($booking_fee) . '</span></li>';
         }
 
         if (!empty($taxes) && $taxes != 0) {
@@ -3624,7 +3651,7 @@ if (!function_exists('homey_calculate_booking_cost_instance_weekly')) {
         }
 
         $services_fee = $services_fee > 0 ? $services_fee : 0;
-        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes;
+        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes - $booking_fee;
         $output .= '<li class="sub-total">' . esc_html__('Sub Total', 'homey') . '<span>' . homey_formatted_price($sub_total_amnt) . '</span></li>';
 
         if (!empty($prices_array['city_fee']) && $prices_array['city_fee'] != 0) {
@@ -3637,6 +3664,16 @@ if (!function_exists('homey_calculate_booking_cost_instance_weekly')) {
 
         if (!empty($services_fee) && $services_fee != 0) {
             $output .= '<li>' . $local['cs_services_fee'] . ' <span>' . homey_formatted_price($services_fee) . '</span></li>';
+        }
+
+        if (!empty($booking_fee) && $booking_fee != 0) {
+            if(!empty($booking_fee_title)){
+                $booking_fee_title = $booking_fee_title;
+            }
+            else{
+                $booking_fee_title = 'Booking Fee';
+            }
+            $output .= '<li>' . esc_html__($booking_fee_title) . ' <span>' . homey_formatted_price($booking_fee) . '</span></li>';
         }
 
         if (!empty($taxes) && $taxes != 0) {
@@ -3681,6 +3718,8 @@ if (!function_exists('homey_calculate_booking_cost_instance_daily')) {
 
         $cleaning_fee = homey_formatted_price($prices_array['cleaning_fee']);
         $services_fee = $prices_array['services_fee'];
+        $booking_fee = $prices_array['booking_fee'];
+        $booking_fee_title = $prices_array['booking_fee_title'];
         $taxes = $prices_array['taxes'];
         $taxes_percent = $prices_array['taxes_percent'];
         $city_fee = homey_formatted_price($prices_array['city_fee']);
@@ -3752,7 +3791,7 @@ if (!function_exists('homey_calculate_booking_cost_instance_daily')) {
         }
 
         $services_fee = $services_fee > 0 ? $services_fee : 0;
-        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes;
+        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes - $booking_fee;
         $output .= '<li class="sub-total">' . esc_html__('Sub Total', 'homey') . '<span>' . homey_formatted_price($sub_total_amnt) . '</span></li>';
 
         if (!empty($prices_array['city_fee']) && $prices_array['city_fee'] != 0) {
@@ -3765,6 +3804,16 @@ if (!function_exists('homey_calculate_booking_cost_instance_daily')) {
 
         if (!empty($services_fee) && $services_fee != 0) {
             $output .= '<li>' . $local['cs_services_fee'] . ' <span>' . homey_formatted_price($services_fee) . '</span></li>';
+        }
+
+        if (!empty($booking_fee) && $booking_fee != 0) {
+            if(!empty($booking_fee_title)){
+                $booking_fee_title = $booking_fee_title;
+            }
+            else{
+                $booking_fee_title = 'Booking Fee';
+            }
+            $output .= '<li>' . esc_html__($booking_fee_title) . ' <span>' . homey_formatted_price($booking_fee) . '</span></li>';
         }
 
         if (!empty($taxes) && $taxes != 0) {
@@ -3813,6 +3862,8 @@ if (!function_exists('homey_calculate_booking_cost_instance')) {
 
         $cleaning_fee = homey_formatted_price($prices_array['cleaning_fee']);
         $services_fee = $prices_array['services_fee'];
+        $booking_fee = $prices_array['booking_fee'];
+        $booking_fee_title = $prices_array['booking_fee_title'];
         $taxes = $prices_array['taxes'];
         $taxes_percent = $prices_array['taxes_percent'];
         $city_fee = homey_formatted_price($prices_array['city_fee']);
@@ -3900,7 +3951,7 @@ if (!function_exists('homey_calculate_booking_cost_instance')) {
         }
 
         $services_fee = $services_fee > 0 ? $services_fee : 0;
-        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes;
+        $sub_total_amnt = $total_price - $prices_array['city_fee'] - $security_deposit - $services_fee - $taxes - $booking_fee;
         $output .= '<li class="sub-total">' . esc_html__('Sub Total', 'homey') . '<span>' . homey_formatted_price($sub_total_amnt) . '</span></li>';
 
         if (!empty($prices_array['city_fee']) && $prices_array['city_fee'] != 0) {
@@ -3913,6 +3964,16 @@ if (!function_exists('homey_calculate_booking_cost_instance')) {
 
         if (!empty($services_fee) && $services_fee != 0) {
             $output .= '<li>' . $local['cs_services_fee'] . ' <span>' . homey_formatted_price($services_fee) . '</span></li>';
+        }
+
+        if (!empty($booking_fee) && $booking_fee != 0) {
+            if(!empty($booking_fee_title)){
+                $booking_fee_title = $booking_fee_title;
+            }
+            else{
+                $booking_fee_title = 'Booking Fee';
+            }
+            $output .= '<li>' . esc_html__($booking_fee_title) . ' <span>' . homey_formatted_price($booking_fee) . '</span></li>';
         }
 
         if (!empty($taxes) && $taxes != 0) {
@@ -4240,7 +4301,7 @@ if (!function_exists('homey_calculate_reservation_cost_monthly')) {
             $services_fee = trim($services_fee) != '' ? $services_fee : 0;
             $taxes = trim($taxes) != '' ? $taxes : 0;
 
-            $sub_total_amnt = $total_price - $reservation_meta['city_fee'] - $security_deposit - $services_fee - $taxes;
+            $sub_total_amnt = $total_price - $reservation_meta['city_fee'] - $security_deposit - $services_fee - $taxes - $booking_fee;
         }
 
 //        echo $sub_total_amnt .'='. $total_price .'-'. $reservation_meta['city_fee'] .'-'. $security_deposit .'-'. $services_fee .'-'. $taxes;
@@ -4248,7 +4309,7 @@ if (!function_exists('homey_calculate_reservation_cost_monthly')) {
 
         if ($is_host) {
 //            $sub_total_amnt = $total_price - (float) $reservation_meta['city_fee'] - (float) $security_deposit - (float) $services_fee - (float) $taxes;
-            $sub_total_amnt = $total_price - (float) $reservation_meta['city_fee'] - (float) $security_deposit - (float) $taxes; // service amount should not be minus
+            $sub_total_amnt = $total_price - (float) $reservation_meta['city_fee'] - (float) $security_deposit - (float) $taxes - (float) $booking_fee; // service amount should not be minus
             $sub_total_amnt = $sub_total_amnt > 0 ? $sub_total_amnt : 1;
             //host fee in % set by admin
             $host_fee_percent = homey_get_host_fee_percent();
@@ -4543,6 +4604,8 @@ if (!function_exists('homey_calculate_reservation_cost_nightly')) {
 
         $cleaning_fee = homey_formatted_price(isset($reservation_meta['cleaning_fee']) ? $reservation_meta['cleaning_fee'] : 0);
         $services_fee = isset($reservation_meta['services_fee']) ? $reservation_meta['services_fee'] : 0;
+        $booking_fee = isset($reservation_meta['booking_fee']) ? $reservation_meta['booking_fee'] : 0;
+        $booking_fee_title = isset($reservation_meta['booking_fee_title']) ? $reservation_meta['booking_fee_title'] : '';
 
         $taxes = isset($reservation_meta['taxes']) ? $reservation_meta['taxes'] : 0;
         $taxes_percent = isset($reservation_meta['taxes_percent']) ? $reservation_meta['taxes_percent'] : 0;
@@ -4690,7 +4753,7 @@ if (!function_exists('homey_calculate_reservation_cost_nightly')) {
             $services_fee = trim($services_fee) != '' ? $services_fee : 0;
             $taxes = trim($taxes) != '' ? $taxes : 0;
 
-            $sub_total_amnt = $total_price - $reservation_meta['city_fee'] - $security_deposit - $services_fee - $taxes;
+            $sub_total_amnt = $total_price - $reservation_meta['city_fee'] - $security_deposit - $services_fee - $taxes - $booking_fee;
         }
 
 //        echo $sub_total_amnt .'='. $total_price .'-'. $reservation_meta['city_fee'] .'-'. $security_deposit .'-'. $services_fee .'-'. $taxes;
@@ -4698,7 +4761,7 @@ if (!function_exists('homey_calculate_reservation_cost_nightly')) {
 
         if ($is_host) {
 //            $sub_total_amnt = $total_price - (float) $reservation_meta['city_fee'] - (float) $security_deposit - (float) $services_fee - (float) $taxes;
-            $sub_total_amnt = $total_price - (float) $reservation_meta['city_fee'] - (float) $security_deposit - (float) $taxes; // service amount should not be minus
+            $sub_total_amnt = $total_price - (float) $reservation_meta['city_fee'] - (float) $security_deposit - (float) $taxes - (float) $booking_fee; // service amount should not be minus
             $sub_total_amnt = $sub_total_amnt > 0 ? $sub_total_amnt : 1;
             //host fee in % set by admin
             $host_fee_percent = homey_get_host_fee_percent();
@@ -4725,6 +4788,16 @@ if (!function_exists('homey_calculate_reservation_cost_nightly')) {
 
         if (!empty($services_fee) && !$is_host) {
             $output .= '<li>' . $local['cs_services_fee'] . ' <span>' . homey_formatted_price($services_fee) . '</span></li>';
+        }
+
+        if (!empty($booking_fee) && $booking_fee != 0) {
+            if(!empty($booking_fee_title)){
+                $booking_fee_title = $booking_fee_title;
+            }
+            else{
+                $booking_fee_title = 'Booking Fee';
+            }
+            $output .= '<li>' . esc_html__($booking_fee_title) . ' <span>' . homey_formatted_price($booking_fee) . '</span></li>';
         }
 
         if (!empty($host_fee) && $is_host) {
@@ -7280,7 +7353,50 @@ if (!function_exists('homey_get_prices')) {
 			}
 		}
 
-		
+        $enable_booking_fee = homey_option('enable_booking_fee', 0);
+        $booking_fee = 0;
+        $title = '';
+        if($enable_booking_fee){
+        $booking_fee_ranges_raw = get_option('homey_options')['booking_fee_ranges'] ?? [];
+
+        $titles = $booking_fee_ranges_raw['title'] ?? [];
+        $mins   = $booking_fee_ranges_raw['min_amount'] ?? [];
+        $maxs   = $booking_fee_ranges_raw['max_amount'] ?? [];
+        $fees   = $booking_fee_ranges_raw['fee_amount'] ?? [];
+
+        $total_rows = max(count($titles), count($mins), count($maxs), count($fees));
+
+        $fee_ranges = [];
+        for ($i = 0; $i < $total_rows; $i++) {
+            $fee_ranges[] = [
+                'title'      => $titles[$i] ?? '',
+                'min_amount' => $mins[$i] ?? 0,
+                'max_amount' => $maxs[$i] ?? 0,
+                'fee_amount' => $fees[$i] ?? 0,
+            ];
+        }
+
+        $total_price = floatval($total_price ?? 0);
+
+        foreach ($fee_ranges as $range) {
+            $min = floatval($range['min_amount']);
+            $max = floatval($range['max_amount']);
+            $title = $range['title'];
+            $fee = floatval($range['fee_amount']);
+
+            if ($max == 0) {
+                $max = PHP_FLOAT_MAX;
+            }
+
+            if ($total_price >= $min && $total_price <= $max) {
+                $booking_fee = $fee;
+                break;
+            }
+        }
+
+        $total_price += $booking_fee;
+    }
+
         $balance = (float)  $total_price - (float) $upfront_payment;
         $nights_total_price_li_html .= '</ul>';
 
@@ -7308,6 +7424,8 @@ if (!function_exists('homey_get_prices')) {
         $prices_array['extra_prices_html'] = $extra_prices_html;
         $prices_array['balance'] = $balance;
         $prices_array['upfront_payment'] = $upfront_payment;
+        $prices_array['booking_fee'] = $booking_fee;
+        $prices_array['booking_fee_title'] = $title;
 
         return $prices_array;
 
@@ -7612,6 +7730,7 @@ if (!function_exists('homey_confirm_offsite_reservation')) {
             $upfront_payment = $reservation_meta['upfront'];
             $balance = $reservation_meta['balance'];
             $total_price = $reservation_meta['total'];
+            $booking_fee = $reservation_meta['booking_fee'];
 
             $email_args = array(
                 'reservation_detail_url' => reservation_detail_link($reservation_id),
@@ -7623,6 +7742,7 @@ if (!function_exists('homey_confirm_offsite_reservation')) {
                 'upfront_payment' => $upfront_payment,
                 'balance' => $balance,
                 'total_price' => $total_price,
+                'booking_fee' => $booking_fee
 
             );
             homey_email_composer($renter_email, 'confirm_reservation', $email_args);
@@ -7705,6 +7825,7 @@ if (!function_exists('homey_confirm_reservation')) {
             $upfront_payment = $reservation_meta['upfront'];
             $balance = $reservation_meta['balance'];
             $total_price = $reservation_meta['total'];
+            $booking_fee = $reservation_meta['booking_fee'];
 
             $email_args = array(
                 'reservation_detail_url' => reservation_detail_link($reservation_id),
@@ -7716,6 +7837,7 @@ if (!function_exists('homey_confirm_reservation')) {
                 'upfront_payment' => $upfront_payment,
                 'balance' => $balance,
                 'total_price' => $total_price,
+                'booking_fee' => $booking_fee
 
             );
             homey_email_composer($renter_email, 'confirm_reservation', $email_args);
@@ -9484,6 +9606,7 @@ if (!function_exists('homey_reservation_mark_paid')) {
             $upfront_payment = $reservation_meta['upfront'];
             $balance = $reservation_meta['balance'];
             $total_price = $reservation_meta['total'];
+            $booking_fee = $reservation_meta['booking_fee'];
 
             $email_args = array(
                 'reservation_detail_url' => reservation_detail_link($reservation_id),
@@ -9495,6 +9618,7 @@ if (!function_exists('homey_reservation_mark_paid')) {
                 'upfront_payment' => $upfront_payment,
                 'balance' => $balance,
                 'total_price' => $total_price,
+                'booking_fee' => $booking_fee
 
             );
             homey_email_composer($renter_email, 'booked_reservation', $email_args);
@@ -10007,7 +10131,10 @@ if (!function_exists('hm_no_login_add_reservation')) {
                 $prices_array = homey_get_prices($check_in_date, $check_out_date, $listing_id, $guests, $extra_options, $selectedRooms);
                 $price_per_night = $prices_array['price_per_night'];
                 $nights_total_price = $prices_array['nights_total_price'];
-
+                $booking_fee =  $prices_array['booking_fee'];
+                $booking_fee_title =  $prices_array['booking_fee_title'];
+                $reservation_meta['booking_fee'] = $booking_fee;
+                $reservation_meta['booking_fee_title'] = $booking_fee_title;
                 $reservation_meta['price_per_night'] = $price_per_night;
                 $reservation_meta['nights_total_price'] = $nights_total_price;
                 $reservation_meta['reservation_listing_type'] = 'per_night';
@@ -10134,7 +10261,8 @@ if (!function_exists('hm_no_login_add_reservation')) {
                 'total_price' => $total_price,
                 'renter_email' => $renter_email,
                 'guest_message' => $guest_message,
-                'message_link' => $message_link
+                'message_link' => $message_link,
+                'booking_fee' => $booking_fee
             );
 
             if ($owner_email != $admin_email) {
@@ -10160,7 +10288,8 @@ if (!function_exists('hm_no_login_add_reservation')) {
                 'total_price' => $total_price,
                 'renter_email' => $renter_email,
                 'guest_message' => $guest_message,
-                'message_link' => $message_link
+                'message_link' => $message_link,
+                'booking_fee' => $booking_fee
             );
 
             homey_email_composer($email, 'hm_no_login_new_reservation_sent', $email_args);
