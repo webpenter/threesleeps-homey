@@ -31,7 +31,7 @@ global $homey_local;
 }
 
 /* Round profile button */
-.profile-menu-btn {
+.profile-menu-btn  {
    width: 68px;
     height: 38px;
     gap: 8px;
@@ -43,8 +43,32 @@ global $homey_local;
     border: 1px solid #eaeaea;
     cursor: pointer;
 }
-
+.header-mobile-wrap .user-menu {
+    height: 60px;
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.header-mobile-wrap .user-menu .user-mobile-nav{
+     width: 70px;
+    height: 38px !important;
+    gap: 8px;
+    background: #ffffff !important;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eaeaea;
+    cursor: pointer;
+}
 .profile-menu-btn svg {
+    width: 21px;
+    height: 21px;
+    stroke: #222;
+}
+
+.header-mobile-wrap .user-menu .user-mobile-nav svg {
     width: 21px;
     height: 21px;
     stroke: #222;
