@@ -5923,6 +5923,76 @@ Redux::setSection( $opt_name, array(
         
     ),
 ));
+/* -----------------------------------------------
+ * Booking Fee - Multiple Ranges
+ * ----------------------------------------------*/
+Redux::setSection( $opt_name, array(
+    'title'      => esc_html__( 'Booking Fee', 'homey' ),
+    'id'         => 'booking-fee',
+    'desc'       => esc_html__('Manage multiple Booking Fee rules based on total booking amount ranges.', 'homey'),
+    'subsection' => true,
+    'fields'     => array(
+
+        // Enable/Disable Booking Fee
+        array(
+            'id'       => 'enable_booking_fee',
+            'type'     => 'switch',
+            'title'    => esc_html__('Enable Booking Fee', 'homey'),
+            'default'  => 0,
+            'on'       => esc_html__('Enabled', 'homey'),
+            'off'      => esc_html__('Disabled', 'homey'),
+        ),
+
+        // Repeater with grouped fields (correct saving format)
+        array(
+            'id'           => 'booking_fee_ranges',
+            'type'         => 'repeater',
+            'title'        => esc_html__('Booking Fee Rules', 'homey'),
+            'group_values' => true,
+            'sortable'     => true,
+            'fields'       => array(
+
+                // Title (OPTIONAL)
+                array(
+                    'id'       => 'title',
+                    'type'     => 'text',
+                    'title'    => esc_html__('Label (optional)', 'homey'),
+                    'default'  => '',
+                ),
+
+                // Min Amount
+                array(
+                    'id'       => 'min_amount',
+                    'type'     => 'text',
+                    'title'    => esc_html__('Min Amount', 'homey'),
+                    'default'  => '0',
+                    'validate' => 'numeric',
+                ),
+
+                // Max Amount
+                array(
+                    'id'       => 'max_amount',
+                    'type'     => 'text',
+                    'title'    => esc_html__('Max Amount', 'homey'),
+                    'default'  => '0',
+                    'validate' => 'numeric',
+                    'desc'     => esc_html__('0 = Unlimited', 'homey'),
+                ),
+
+                // Fee Amount
+                array(
+                    'id'       => 'fee_amount',
+                    'type'     => 'text',
+                    'title'    => esc_html__('Fee Amount', 'homey'),
+                    'default'  => '0',
+                    'validate' => 'numeric',
+                ),
+
+            ),
+        ),
+
+    ),
+));
 
 /* -----------------------------------------------
  * Host Fee

@@ -1,4 +1,5 @@
 <?php
+require_once( get_stylesheet_directory() . '/inc/register-scripts.php' );
 function homey_enqueue_styles() {
     
     // enqueue parent styles
@@ -6,12 +7,13 @@ function homey_enqueue_styles() {
     
     // enqueue child styles
     wp_enqueue_style('homey-child-theme', get_stylesheet_directory_uri() .'/style.css', array('homey-parent-theme'));
+    
 }
-
 add_action('wp_enqueue_scripts', 'homey_enqueue_styles');
 
 
 
+wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 /**
  * creating a Stripe account.
  */
@@ -40,7 +42,7 @@ add_action('wp_enqueue_scripts', 'enqueue_notifyjs_scripts');
 
 /**
  * Display dynamic notifications with configurable parameters.
- * 
+ *
  * @param string  $message   Notification content (HTML escaped)
  * @param string  $type      Style type (success|error|info|warn)
  * @param bool    $auto_hide Auto-dismissal flag
@@ -135,7 +137,7 @@ add_action('wp_head', 'homey_custom_notify_css');
 
 /**
  * Interactive notification system with action buttons.
- * 
+ *
  * @param string $title       Notification header text
  * @param string $button_text Primary button text
  * @param string $button_url  Redirect URL for primary action
