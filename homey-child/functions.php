@@ -516,7 +516,7 @@ function child_add_stripe_client_id_field($sections)
     return $sections;
 }
 
-require_once('includes/stripe-connect.php'); 
+
 
 require_once( get_stylesheet_directory() . '/framework/functions/listings.php' );
 require_once( get_stylesheet_directory() . '/framework/functions/reservation.php' );
@@ -601,6 +601,122 @@ add_action('save_post', function($post_id) {
         update_post_meta($post_id, 'homey_multiroom_booking', '');
     }
 });
+
+
+
+/* -----------------------------------------------------------------------------------------------------------
+*  Stripe Form
+-------------------------------------------------------------------------------------------------------------*/
+
+if (!function_exists('homey_stripe_payment')) {
+    function homey_stripe_payment($reservation_id)
+    {
+
+        $allowded_html = array();
+        $reservation_no_userHash = 0;
+        if(isset($_REQUEST['reservation_no_userHash'])){
+            if($_REQUEST['reservation_no_userHash'] > 0){
+                $userID = (int) $_REQUEST['reservation_no_userHash'];
+                $reservation_no_userHash = (int) $_REQUEST['reservation_no_userHash'];
+
+                $userID = intval(deHashNoUserId($userID));
+                $current_user = get_userdata($userID);
+
+                if ($current_user) {
+                    $user_email = $current_user->user_email;
+                }
+            }
+        }else{
+            $current_user = wp_get_current_user();
+            $userID = $current_user->ID;
+            $user_email = $current_user->user_email;
+        }
+
+        $user_email = $current_user->user_email;
+        $reservation_payment_type = homey_option('reservation_payment');
+
+        $reservation_meta = get_post_meta($reservation_id, 'reservation_meta', true);
+        $extra_options = get_post_meta($reservation_id, 'extra_options', true);
+
+
+        $listing_id = intval($reservation_meta['listing_id']);
+        $check_in_date = wp_kses($reservation_meta['check_in_date'], $allowded_html);
+        $check_out_date = wp_kses($reservation_meta['check_out_date'], $allowded_html);
+        $guests = intval($reservation_meta['guests']);
+        $adult_guest = isset($reservation_meta['adult_guest']) ? intval($reservation_meta['adult_guest']) : 0;
+        $child_guest = isset($reservation_meta['child_guest']) ? intval($reservation_meta['child_guest']) : 0;
+        $reservation_no_userHash = isset($reservation_meta['reservation_no_userHash']) ? intval($reservation_meta['reservation_no_userHash']) : 0;
+
+        $booking_type = homey_booking_type_by_id($listing_id);
+
+        if ($booking_type == 'per_day_date') {
+            $prices_array = homey_get_day_date_prices($check_in_date, $check_out_date, $listing_id, $guests, $extra_options);
+        } else {
+            $prices_array = homey_get_prices($check_in_date, $check_out_date, $listing_id, $guests, $extra_options);
+        }
+
+        $upfront_payment = floatval($reservation_meta['upfront']);
+
+        $extra_expenses = homey_get_extra_expenses($reservation_id);
+        $extra_discount = homey_get_extra_discount($reservation_id);
+
+        if (!empty($extra_expenses) && $reservation_payment_type == 'full') {
+            $expenses_total_price = $extra_expenses['expenses_total_price'];
+            $upfront_payment = $upfront_payment + $expenses_total_price;
+        }
+
+        if (!empty($extra_discount) && $reservation_payment_type == 'full') {
+            $discount_total_price = $extra_discount['discount_total_price'];
+            $upfront_payment = $upfront_payment - $discount_total_price;
+        }
+
+        $minimum_currency_amount = get_minimum_currency();
+        if ($upfront_payment < $minimum_currency_amount) {
+            echo $minimum_amount_error = esc_html__("You can't pay using Stripe because minimum amount limit is 0.5", 'homey');
+            return $minimum_amount_error;
+        }
+
+        $description = esc_html__('Reservation ID', 'homey') . ' ' . $reservation_id;
+
+        if ($userID < 1) {
+            echo esc_html__("Please register yourself to continue.", 'homey');
+            return $userID;
+        }
+
+        require_once(HOMEY_PLUGIN_PATH . '/classes/class-stripe.php');
+
+        $stripe_payments = new Homey_Stripe($userID);
+
+        print '<div class="stripe-wrapper" id="homey_stripe_simple"> ';
+        $metadata = array(
+            'reservation_id_for_stripe' => $reservation_id,
+            'listing_id' => $listing_id,
+            'host_user_id' => (int) get_post_field('post_author', $listing_id),
+            'userID' => $userID,
+            'reservation_no_userHash' => $reservation_no_userHash,
+            'guests' => $guests,
+            'adult_guest' => $adult_guest,
+            'child_guest' => $child_guest,
+            'is_hourly' => 0,
+            'payment_type' => 'reservation_fee',
+            'extra_options' => ($extra_options == '') ? 0 : 1,
+            'message' => esc_html__('Reservation Payment', 'homey')
+        );
+
+        if ($upfront_payment > 0) {
+            $stripe_payments->homey_stripe_form($upfront_payment, $metadata, $description);
+        } else {
+            $message_text = esc_html__('Your amount in your wallet is: ', 'homey');
+            $upfront_payment_with_symbol = homey_option("currency_symbol") . ' ' . $upfront_payment;
+            echo '<h3>' . $message_text . ' ' . $upfront_payment_with_symbol . '</h3>';
+        }
+
+        print'
+        </div>';
+
+
+    }
+}
 
 
 ?>
