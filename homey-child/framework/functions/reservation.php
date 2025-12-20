@@ -4768,7 +4768,7 @@ if (!function_exists('homey_calculate_reservation_cost_nightly')) {
             $sub_total_amnt = $total_price - $reservation_meta['city_fee'] - $security_deposit - $services_fee - $taxes - $booking_fee;
         }
 
-//        echo $sub_total_amnt .'='. $total_price .'-'. $reservation_meta['city_fee'] .'-'. $security_deposit .'-'. $services_fee .'-'. $taxes;
+    //    echo $sub_total_amnt .'='. $total_price .'-'. $reservation_meta['city_fee'] .'-'. $security_deposit .'-'. $services_fee .'-'. $taxes;
 
 
         if ($is_host) {
@@ -4833,7 +4833,7 @@ if (!function_exists('homey_calculate_reservation_cost_nightly')) {
 
             if (!$is_host && !empty($services_fee)) {
                 if (!homey_is_admin()) {
-                    $upfront_payment = $sub_total_amnt + $services_fee;
+                    $upfront_payment =  $reservation_meta['city_fee'] + $security_deposit + $sub_total_amnt + $services_fee + $taxes + $booking_fee;
                 }
             }
 
