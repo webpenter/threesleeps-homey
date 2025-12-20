@@ -7407,6 +7407,9 @@ if (!function_exists('homey_get_prices')) {
         }
 
         $total_price += $booking_fee;
+        if ($reservation_payment_type == 'full') {
+        $upfront_payment += $booking_fee;
+        }
     }
 
         $balance = (float)  $total_price - (float) $upfront_payment;
@@ -8236,6 +8239,7 @@ if (!function_exists('homey_stripe_payment')) {
         $check_in_date = wp_kses($reservation_meta['check_in_date'], $allowded_html);
         $check_out_date = wp_kses($reservation_meta['check_out_date'], $allowded_html);
         $guests = intval($reservation_meta['guests']);
+        $booking_fee = $reservation_meta['booking_fee'];
         $adult_guest = isset($reservation_meta['adult_guest']) ? intval($reservation_meta['adult_guest']) : 0;
         $child_guest = isset($reservation_meta['child_guest']) ? intval($reservation_meta['child_guest']) : 0;
         $reservation_no_userHash = isset($reservation_meta['reservation_no_userHash']) ? intval($reservation_meta['reservation_no_userHash']) : 0;
@@ -8286,6 +8290,7 @@ if (!function_exists('homey_stripe_payment')) {
             'userID' => $userID,
             'reservation_no_userHash' => $reservation_no_userHash,
             'guests' => $guests,
+            'booking_fee'=> $booking_fee,
             'adult_guest' => $adult_guest,
             'child_guest' => $child_guest,
             'is_hourly' => 0,
@@ -8409,6 +8414,7 @@ if (!function_exists('homey_stripe_payment_instance')) {
             'userID' => $userID,
             'is_hourly' => 0,
             'is_instance_booking' => 1,
+            'booking_fee'=> $prices_array['booking_fee'],
             'check_in_date' => $check_in_date,
             'check_out_date' => $check_out_date,
             'guests' => $guests,
