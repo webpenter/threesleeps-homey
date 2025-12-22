@@ -86,28 +86,39 @@ $accomodation = homey_get_listing_data('accomodation');
                         get_template_part('single-listing/booking/guests');
                         get_template_part('single-listing/booking/extra-prices');
                     } else {
-                         if (!empty($accomodation)) : ?>
+                          if (!empty($accomodation)) : ?>
 
-                            <div class="multi_room_select">
-                                <select name="rooms[]"
-                                        class="selectpicker listing_multirooms" 
-                                        multiple 
-                                        data-live-search="true" 
-                                        data-actions-box="true" 
-                                        title="<?php esc_html_e('Select Rooms', 'homey'); ?>">
-                                    <?php foreach ($accomodation as $index => $acc) : ?>
-                                        <?php 
-                                            $room_name   = isset($acc['acc_bedroom_name']) ? $acc['acc_bedroom_name'] : '';
-                                            $night_price = isset($acc['night_price']) ? $acc['night_price'] : 0;
-                                            $room_id     = isset($acc['room_id']) ? $acc['room_id'] : 0;
-                                        ?>
-                                        <option value="<?php echo esc_attr($room_id); ?>">
-                                            <?php echo esc_html__($room_name . '  =>  ' . homey_formatted_price($night_price)); ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        <?php endif;
+							<div class="multi_room_select">
+								<select name="rooms[]"
+										class="selectpicker listing_multirooms"
+										multiple
+										data-live-search="true"
+										data-actions-box="true"
+										title="<?php esc_html_e('Select Rooms', 'homey'); ?>">
+
+									<?php foreach ($accomodation as $index => $acc) : ?>
+										<?php 
+											$room_name   = isset($acc['acc_bedroom_name']) ? $acc['acc_bedroom_name'] : '';
+											$night_price = isset($acc['night_price']) ? $acc['night_price'] : 0;
+											$room_id     = isset($acc['room_id']) ? $acc['room_id'] : 0;
+										?>
+
+										<option value="<?php echo esc_attr($room_id); ?>"
+											data-content="
+												<div style='display:flex;justify-content:space-between;width:100%;'>
+													<span><?php echo esc_html($room_name); ?></span>
+													<span><?php echo esc_html(homey_formatted_price($night_price)); ?></span>
+												</div>
+											">
+											<?php echo esc_html($room_name . ' => ' . homey_formatted_price($night_price)); ?>
+										</option>
+
+									<?php endforeach; ?>
+
+								</select>
+							</div>
+
+						<?php endif;
 
                     }
                     ?>
