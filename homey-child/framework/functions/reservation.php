@@ -2191,12 +2191,17 @@ if (!function_exists('check_booking_availability_on_date_change')) {
                     $night_price = isset($acc['night_price']) ? $acc['night_price'] : 0;
                     $room_id     = isset($acc['room_id']) ? $acc['room_id'] : uniqid('room_');
                     $night_price = $night_price * $days_count;
-                    // option (for <select>)
-                    $available_rooms_select[] = '<option value="' . esc_attr($room_id) . '">' 
-                        . esc_html($room_name . ' => ' . homey_formatted_price($night_price)) . 
-                        '</option>';
 
-                    // li (for Bootstrap dropdown)
+                    // option (for <select>) with proper alignment
+                    $available_rooms_select[] = '<option value="' . esc_attr($room_id) . '" 
+                        data-content="<div style=\'display:flex; justify-content:space-between; width:100%;\'>
+                            <span>' . esc_html($room_name) . '</span>
+                            <span>' . esc_html(homey_formatted_price($night_price)) . '</span>
+                        </div>">'
+                        . esc_html($room_name . ' => ' . homey_formatted_price($night_price)) .
+                    '</option>';
+
+                    // li (for Bootstrap dropdown) — unchanged
                     $bootstrap_code[] = '<li data-original-index="' . $index . '">
                         <a tabindex="0" class="" role="option" aria-disabled="false" aria-selected="false">
                             <span class="text">' . esc_html($room_name . ' => ' . homey_formatted_price($night_price)) . '</span>
@@ -7330,7 +7335,7 @@ if (!function_exists('homey_get_prices')) {
 				}
 			}
 		}
-
+        
 		// ✅ Calculate taxes based on original price (excluding city/security deposit etc)
 		if ($enable_taxes == 1 && !empty($selectedRooms)) {
 			if ($tax_type == 'global_tax') {

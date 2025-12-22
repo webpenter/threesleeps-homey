@@ -1088,7 +1088,7 @@ jQuery(document).ready(function ($) {
             $.ajax({
                 type: 'post',
                 url: ajaxurl,
-                dataType: 'json',
+                dataType: 'json', 
                 data: {
                     'action': 'check_booking_availability_on_date_change',
                     'check_in_date': check_in_date,
