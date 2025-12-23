@@ -337,8 +337,8 @@ Template: homey
     transform: translateY(-50%);
     background: rgba(255,255,255,0.9);
     border: 1px solid rgba(0,0,0,0.08);
-    width: 48px;
-    height: 48px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -347,7 +347,7 @@ Template: homey
     z-index: 10;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 16px rgba(0,0,0,0.12);
-    opacity: 0;
+    opacity: 0.4;
 }
 
 .modal-carousel:hover .carousel-btn {
@@ -373,7 +373,9 @@ Template: homey
     font-size: 26px;
     color: #222;
     font-weight: bold;
-    line-height: 1;
+    line-height: 0;
+    top: -2px;
+    position: relative;
 }
 
 .modal-carousel .carousel-next {
@@ -385,7 +387,9 @@ Template: homey
     font-size: 26px;
     color: #222;
     font-weight: bold;
-    line-height: 1;
+    line-height: 0;
+    top: -2px;
+    position: relative;
 }
 
 .multi_room_select {

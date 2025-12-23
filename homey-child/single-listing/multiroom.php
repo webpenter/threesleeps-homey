@@ -279,7 +279,7 @@ if(!empty($accomodation)) {
                                                 </div>
                                             </div>
                                             <button type="button"
-                                                    class="sticky-footer-btn"
+                                                    class="btn btn-full-width btn-primary"
                                                     data-listid="<?php echo get_the_id(); ?>"
                                                     data-room-id="<?php echo $index; ?>"
                                                     data-dismiss="modal">
