@@ -15,6 +15,34 @@ $menu_sticky = homey_option('menu-sticky');
                     <button type="button" class="btn btn-mobile-nav mobile-main-nav" data-toggle="collapse" data-target="#mobile-nav" aria-expanded="false">
                         <i class="homey-icon homey-icon-navigation-menu" aria-hidden="true"></i>
                     </button><!-- btn-mobile-nav -->
+                       <?php
+                        $currency_switcher_enable = homey_option('currency_converter');
+                        $is_multi_currency = 0;
+
+                        // if ($currency_switcher_enable != 0 && $is_multi_currency != 1) {
+
+                            if (class_exists('FCC_Currencies')) {
+
+                                // Current currency (already handled by Homey/FCC)
+                        $current_currency =  homey_option("currency_symbol");
+
+                                // Current language (WPML)
+                                $current_lang = defined('ICL_LANGUAGE_CODE') ? strtoupper(ICL_LANGUAGE_CODE) : 'EN';
+                                ?>
+
+                                <!-- EN | £ pill -->
+                                <div class="lang-currency-box shadow-box">
+                                    <span class="lang"><?php echo esc_html($current_lang); ?></span>
+                                    <span class="divider">|</span>
+                                    <span class="currency"><?php echo esc_html($current_currency); ?></span>
+                                </div>
+
+                                <?php
+                            }
+                        // }
+                        ?>
+
+
                 </div>
                 <div class="col-xs-6">
                     <div class="mobile-logo text-center">
@@ -31,6 +59,7 @@ $menu_sticky = homey_option('menu-sticky');
                 </div>
                 <div class="col-xs-3">
                     <?php if(homey_is_login_register()) { ?>
+                        
                     <div class="user-menu text-right">
                         <button type="button" class="btn btn-mobile-nav user-mobile-nav" data-toggle="collapse" data-target="#user-nav" aria-expanded="false">
                             <!-- <i class="homey-icon homey-icon-single-neutral-circle" aria-hidden="true"></i> -->
